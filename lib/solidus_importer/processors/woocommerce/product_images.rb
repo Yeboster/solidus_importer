@@ -5,6 +5,7 @@ module SolidusImporter
     module WooCommerce
       class ProductImages < ::SolidusImporter::Processors::Base
         IMAGE_SRC_KEY = 'Featured Image'
+
         def call(context)
           @data = context.fetch(:data)
           return unless product_image?
