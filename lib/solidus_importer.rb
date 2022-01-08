@@ -9,7 +9,7 @@ require 'solidus_importer/base_importer'
 require 'solidus_importer/order_importer'
 
 require 'solidus_importer/processors/base'
-processors = File.join(__dir__, 'solidus_importer/processors/*.rb')
+processors = File.join(__dir__, 'solidus_importer/processors/**/*.rb')
 Dir[processors].sort.each { |file| require file }
 
 require 'solidus_importer/configuration'
