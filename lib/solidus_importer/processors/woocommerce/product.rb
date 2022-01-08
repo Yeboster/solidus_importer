@@ -37,7 +37,7 @@ module SolidusImporter
         end
 
         def product_price
-          @data['Price']&.to_f
+          @data['Price']&.sub(',', '.')&.to_f
         end
 
         def tax_category
