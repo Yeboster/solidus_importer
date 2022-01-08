@@ -75,6 +75,7 @@ module SolidusImporter
 
         def process_product
           prepare_product.tap do |product|
+            product.sku = product_sku
             product.slug = product_slug
             product.price = product_price
             product.available_on = available? ? product_published_at : options[:not_available]
@@ -87,7 +88,6 @@ module SolidusImporter
             product.meta_title = product_name
 
             # Add product properties
-            product.set_property('sku', product_sku)
             product.set_property('woocommerce_id', @data['Product ID'])
 
             # Save the product
