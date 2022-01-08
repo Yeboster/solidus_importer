@@ -10,7 +10,7 @@ module SolidusImporter
           @data = context.fetch(:data)
 
           self.product = context.fetch(:product)
-          self.taxonomy = @options[:root_taxonomy]
+          self.taxonomy = options[:root_taxonomy]
 
           process_taxons
         end
@@ -28,7 +28,7 @@ module SolidusImporter
           return unless taxon_hierarchy
 
           taxon_hierarchy.split('|').map do |taxon|
-            last_taxon = taxonomy
+            last_taxon = taxonomy.root
             taxon.split('>').each do |taxon|
               last_taxon = last_taxon.children.find_or_create_by(name: taxon, taxonomy_id: taxonomy.id)
             end
