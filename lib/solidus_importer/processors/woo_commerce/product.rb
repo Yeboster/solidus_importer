@@ -43,11 +43,18 @@ module SolidusImporter
         def tax_category
           default_pct = 22
           tax_pct = @data['Tax Class']&.to_i || default_pct
-          Spree::TaxCategory.find_or_initialize_by(name: tax_pct).tap do |tax|
+          tax_category = Spree::TaxCategory.find_or_create_by(name: tax_pct).tap do |tax|
             tax.tax_code = tax_pct
             tax.is_default = tax_pct == default_pct
-            tax.save!
           end
+
+          tax_category.tax_rates.find_or_create_by(name: tax_pct) do |rate|
+            rate.amount = tax_pct * 0.01
+            rate.zone = Spree::Zone.first
+            rate.calculator = Spree::Calculator.first
+          end
+
+          tax_category
         end
 
         def product_published_at
