@@ -53,6 +53,7 @@ module SolidusImporter
       data = CSV.parse(
         File.read(@import.file.path),
         headers: true,
+        col_sep: ';',
         encoding: 'UTF-8',
         header_converters: ->(h) { h.strip }
       )
